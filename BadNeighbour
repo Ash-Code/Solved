@@ -1,0 +1,49 @@
+
+public class BadNeighbor {
+
+	public static int maxDonations(int[] donations) {
+		
+
+		return Math.max(Case1(donations), Case2(donations));
+	}
+
+	public static int Case1(int[] donations) {
+		int max = 0;
+		int[] sol = donations.clone();
+		for (int i = 2; i < sol.length-1; i++) {
+			for (int j = 0; j < i - 1; j++) {
+				if (sol[j] + donations[i] > sol[i])
+					sol[i] = sol[j] + donations[i];
+			}
+		}
+		for (int i = 0; i < sol.length; i++) {
+			if (max < sol[i])
+				max = sol[i];
+		}
+		return max;
+	}
+	
+	public static int Case2(int[] donations) {
+		int max = 0;
+		int[] sol = donations.clone();
+		for (int i = 2; i < sol.length; i++) {
+			for (int j = 1; j < i - 1; j++) {
+				if (sol[j] + donations[i] > sol[i])
+					sol[i] = sol[j] + donations[i];
+			}
+		}
+		for (int i = 0; i < sol.length; i++) {
+			if (max < sol[i])
+				max = sol[i];
+		}
+		return max;
+	}
+
+	public static void main(String args[]) {
+		int donations[] = { 94, 40, 49, 65, 21, 21, 106, 80, 92, 81, 679, 4, 61,  
+				  6, 237, 12, 72, 74, 29, 95, 265, 35, 47, 1, 61, 397,
+				  52, 72, 37, 51, 1, 81, 45, 435, 7, 36, 57, 86, 81, 72 };
+		System.out.println(maxDonations(donations));
+
+	}
+}

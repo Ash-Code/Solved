@@ -1,0 +1,56 @@
+// same as FairWorkLoad, the binary search picks a candidate solution, we find its position iteratively, if greater 
+than n, then we lower the search space and vice versa.
+
+import java.io.IOException;
+import java.math.BigInteger;
+
+public class Temp {
+	
+	public static long Solve(int[] lowerbound, int[] upperbound, int pos){
+		long mid=0, t=0;
+		long min=Long.MAX_VALUE, max=Long.MIN_VALUE;
+		for(int i=0;i<lowerbound.length;i++){
+			if(lowerbound[i]<min){
+				min=lowerbound[i];
+			}
+			if(upperbound[i]>max){
+				max=upperbound[i];
+			}
+			
+		}
+		System.out.println(min+" " +max);
+		while(min<=max){
+			mid=(min+max)/2;
+			t=0;
+			for( int i=0;i<lowerbound.length;i++){
+				
+				if(lowerbound[i]<=mid){
+					if(upperbound[i]>=mid){
+						t+=mid-lowerbound[i]+1;
+					}else
+						t+=upperbound[i]-lowerbound[i]+1;
+				}
+				
+			}
+			System.out.println(" mid "+ mid+" t "+t);
+			
+			if(t>pos){
+				max=mid-1;
+			}else
+				min=mid+1;
+			
+		}
+		
+		
+		return min;
+	}
+
+	public static void main(String[] args) throws IOException {
+
+		
+int x[]={-456, -82481, 484, 399}, l[]={19342, 200, 8484, 1000},
+pos= 44444;
+System.out.println(Solve(x,l,pos));
+
+	}
+}

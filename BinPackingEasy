@@ -1,0 +1,37 @@
+package CodeProbs;
+
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.LinkedList;
+
+public class BinPacking{
+
+	public static int minBins(int[] A) {
+		int count = 0, j = 0, temp;
+
+		boolean[] used = new boolean[A.length];
+
+		Arrays.sort(A);
+		for (int i = A.length - 1; i >= 0; i--) {
+			if (used[i])
+				continue;
+			j = i;
+			while (j > 0) {
+				j--;
+				if (used[j])
+					continue;
+				temp = 300 - (A[i] + A[j]);
+				if (temp >= 0) {
+					used[j] = true;
+					break;
+				}
+			}
+
+			used[i] = true;
+			count++;
+		}
+
+		return count;
+	}
+
+}

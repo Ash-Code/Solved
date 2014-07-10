@@ -1,0 +1,87 @@
+package DS;
+
+
+public class Implement {
+	public static void main(String args[]) {
+		BST<Integer> sTree = new BST<Integer>();
+		sTree.insert(5);
+		sTree.insert(6);
+		sTree.insert(20);
+		sTree.insert(35);
+		sTree.insert(7);
+		sTree.insert(27);
+		sTree.insert(5);
+		sTree.insert(8);
+		sTree.insert(5);
+		sTree.insert(6);
+		sTree.insert(20);
+		sTree.insert(35);
+		sTree.insert(7);
+		sTree.insert(27);
+		sTree.insert(5);
+		sTree.insert(8);
+		sTree.insert(5);
+		sTree.insert(6);
+		sTree.insert(20);
+		sTree.insert(35);
+		sTree.insert(7);
+		sTree.insert(27);
+		sTree.insert(5);
+		sTree.insert(8);sTree.insert(5);
+		sTree.insert(6);
+		sTree.insert(20);
+		sTree.insert(35);
+		sTree.insert(7);
+		sTree.insert(27);
+		sTree.insert(5);
+		sTree.insert(8);sTree.insert(5);
+		sTree.insert(6);
+		sTree.insert(20);
+		sTree.insert(35);
+		sTree.insert(7);
+		sTree.insert(27);
+		sTree.insert(5);
+		sTree.insert(8);sTree.insert(5);
+		sTree.insert(6);
+		sTree.insert(20);
+		sTree.insert(35);
+		sTree.insert(7);
+		sTree.insert(27);
+		sTree.insert(5);
+		sTree.insert(8);sTree.insert(5);
+		sTree.insert(6);
+		sTree.insert(20);
+		sTree.insert(35);
+		sTree.insert(7);
+		sTree.insert(27);
+		sTree.insert(5);
+		sTree.insert(8);sTree.insert(5);
+		sTree.insert(6);
+		sTree.insert(20);
+		sTree.insert(35);
+		sTree.insert(7);
+		sTree.insert(27);
+		sTree.insert(5);
+		sTree.insert(8);sTree.insert(5);
+		sTree.insert(6);
+		sTree.insert(20);
+		sTree.insert(35);
+		sTree.insert(7);
+		sTree.insert(27);
+		sTree.insert(5);
+		sTree.insert(8);sTree.insert(5);
+		sTree.insert(6);
+		sTree.insert(20);
+		sTree.insert(35);
+		sTree.insert(7);
+		sTree.insert(27);
+		sTree.insert(5);
+		sTree.insert(8);
+		sTree.inOrder();
+		System.out.println("");
+		System.out.println(sTree.search(35)+" "+sTree.search(9));
+		System.out.println(sTree.delete(27)+" "+sTree.delete(5));
+		sTree.inOrder();
+
+	}
+}

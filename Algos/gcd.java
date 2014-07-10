@@ -14,7 +14,7 @@ public class gcd {
 	}
 	
 	public static void main(String args[]){
-		gcdd(6,5);
+	System.out.println(	gcdd(767622,788));
 	}
 
 }

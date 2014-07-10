@@ -14,7 +14,7 @@ public class quickSort {
 		int pivot = A[hi];
 		int ws=lo;
 		for(int i=lo;i<hi;i++){
-			if(A[i]<=pivot){
+			if(A[i]>=pivot){
 				swap(A, ws, i);
 				ws++;
 			}
@@ -38,12 +38,12 @@ public class quickSort {
 
 	public static void main(String args[]) {
 long time = System.nanoTime();
-		int[] A={5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5};
+		int[] A={-5,6,7,2,45,2,-67,99};
 		Sort(A, 0, A.length-1);
 		
 		for(int i=0;i<A.length;i++)
 			System.out.print(A[i]+" ");
-		
+		System.out.println("");
 		System.out.println(System.nanoTime()-time);
 	}
 

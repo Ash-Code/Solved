@@ -12,7 +12,7 @@ import java.util.Arrays;
 /*
  ID: renegad2
  LANG: JAVA
- TASK: runaround
+ TASK: inflate
  */
 public class inflate {
 	public static PrintWriter pw;
@@ -45,6 +45,7 @@ public static int[] dp;
 				dp[j]=Math.max(dp[j], dp[j-t[i]]+s[i]);
 			}
 		}
+		
 		pw.println(dp[M]);
 		
 		pw.close();

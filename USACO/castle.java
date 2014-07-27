@@ -25,7 +25,8 @@ public class castle {
 	public static int comp = 0, map[][], c[][], N, M, a;
 	public static boolean[][] marked;
 
-	public static class node implements Comparable<node> {/* best use for TreeSet, fast ordering but Since we need only the top answer
+	public static class node implements Comparable<node> {
+		/* best use for TreeSet, fast ordering but Since we need only the top answer
 	Simple tagging would have sufficed. This takes time.
 	*/
 		int i, j, a;

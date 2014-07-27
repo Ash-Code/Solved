@@ -57,9 +57,7 @@ public class cowtour {
 				if (component[j] != comp)
 					continue;
 				for (int i = 0; i < loc.length; i++) {
-					if (i == j) {
-						continue;
-					}
+					
 
 					if (component[i] != comp)
 						continue;
@@ -146,23 +144,6 @@ public class cowtour {
 		}
 		
 
-		for (int i = 0; i < N; i++) {
-			pw.print(i + " ");
-			for (int j = 0; j < N; j++) {
-				if (bestD[i][j] == Double.MAX_VALUE)
-					pw.print("-1 ");
-				else
-					pw.print(String.format("%.1f", bestD[i][j]) + "  ");
-			}
-			pw.println("");
-		}
-
-		for (int i = 0; i < N; i++) {
-			System.out.println(component[i] + " " + i + " " + loc[i][0] + " "
-					+ loc[i][1] + " " + (lDis[i]+ getDis(loc[i][0],loc[i][1],loc[104][0],loc[104][1])));
-		}
-		
-
 		double LSP = Double.MAX_VALUE;
 		for (int i = 0; i < N; i++) {
 
@@ -170,18 +151,23 @@ public class cowtour {
 				if (i == j||component[i]==component[j])
 					continue;
 				if (bestD[i][j] == Double.MAX_VALUE) {
-					bestD[i][j] = lDis[i]
+					double t = lDis[i]
 							+ lDis[j]
 							+ getDis(loc[i][0], loc[i][1], loc[j][0], loc[j][1]);
-					if (bestD[i][j] <= LSP)
-						LSP = bestD[i][j];
+					if (t <= LSP)
+						LSP = t;
 				}
 
 			}
 
 		}
+		double res=0;
+		for(int i=0;i<N;i++){
+			res=Math.max(res, lDis[i]);
+		}
 
-		System.out.println(String.format("%.6f", LSP));
+		
+		pw.println(String.format("%.6f", Math.max(LSP, res)));
 
 		bf.close();
 		pw.close();

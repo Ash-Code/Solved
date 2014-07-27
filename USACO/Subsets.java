@@ -1,9 +1,10 @@
 package USACO;
+
 /*
-ID: renegad2
-LANG: JAVA
-TASK: subsets
-*/
+ ID: renegad2
+ LANG: JAVA
+ TASK: subsets
+ */
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -46,7 +47,23 @@ public class Subsets {
 			}
 		}
 
-		return dp[N * (N + 1) / 4][N];
+		return dp[N * (N + 1) / 4][N]/2;
+	}
+
+	public static long Iterate(int N) {
+
+		int sum=N*(N+1)/4;
+		long[] dp=new long[sum+1];
+		dp[0]=1;
+		for(int i=1;i<=N;i++){
+			System.out.println("N : "+i);
+			for(int s=sum;s>=i;s--){
+							dp[s]+=dp[s-i];
+				System.out.println("     s: "+s+" = "+dp[s]+ " added "+dp[s-i]+" of "+(s-i));
+			}
+		}
+		
+		return dp[sum]/2;
 	}
 
 	public static void main(String args[]) throws IOException {
@@ -56,7 +73,9 @@ public class Subsets {
 		pw = new PrintWriter(new BufferedWriter(new FileWriter("C:/ride.out")));
 		StreamTokenizer st = new StreamTokenizer(bf);
 		st.nextToken();
-		System.out.println(Solve((int) st.nval) / 2);
+		// System.out.println(Solve((int) st.nval) / 2);
+		System.out.println(Iterate(7));
+		System.out.println(Solve(7));
 		pw.close();
 		System.out.println("time :" + (System.currentTimeMillis() - time));
 		System.exit(0);

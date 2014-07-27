@@ -6,127 +6,145 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.StreamTokenizer;
-import java.util.ArrayDeque;
 import java.util.Arrays;
-import java.util.TreeSet;
+import java.util.StringTokenizer;
 
-/*
- ID: renegad2
- LANG: JAVA
- TASK: concom
- */
 public class temp {
-	public static PrintWriter pw;
-	public static int[][] map;
-	public static ArrayDeque<Integer> q = new ArrayDeque<Integer>();
-	static int N;
+	public static void main(String[] args) throws IOException {
+		long start = System.currentTimeMillis();
+		BufferedReader f = new BufferedReader(new FileReader("C:/ride.in"));
+		PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(
+				"C:/ride.out")));
+		StringTokenizer st = new StringTokenizer(f.readLine());
+		N = Integer.parseInt(st.nextToken());
 
-	public static class pair implements Comparable<pair> {
-		int a, b;
-
-		public pair(int x, int y) {
-			a = x;
-			b = y;
-		}
-
-		public int compareTo(pair x) {
-			if (x.a > this.a)
-				return -1;
-			if (x.a < this.a)
-				return 1;
-			if (x.b > this.b)
-				return -1;
-			if (x.b < this.b)
-				return 1;
-			if (x.a == x.b)
-				return 0;
-			else
-				return 0;
-		}
-
-	}
-
-	public static TreeSet<pair> list = new TreeSet<pair>();
-
-	public static void main(String args[]) throws IOException {
-		long time = System.currentTimeMillis();
-
-		BufferedReader bf = new BufferedReader(new FileReader("C:/ride.in"));
-		pw = new PrintWriter(new BufferedWriter(new FileWriter("C:/ride.out")));
-		StreamTokenizer st = new StreamTokenizer(bf);
-		st.nextToken();
-		N = (int) st.nval;
-		map = new int[100 + 1][100 + 1];
+		loc = new int[N][2];
 		for (int i = 0; i < N; i++) {
-			st.nextToken();
-			int x = (int) st.nval;
-			st.nextToken();
-			int y = (int) st.nval;
-			st.nextToken();
-			int p = (int) st.nval;
-			if (x == y)
-				map[x][y] = 0;
-			else
-				map[x][y] = p;
+			st = new StringTokenizer(f.readLine());
+			loc[i][0] = Integer.parseInt(st.nextToken());
+			loc[i][1] = Integer.parseInt(st.nextToken());
 		}
 
-		for (int i = 1; i <= 100; i++) {
-			boolean found = false;
-			boolean visited[] = new boolean[101];
-			Arrays.fill(visited, false);
-			q = new ArrayDeque<Integer>();
-			for (int j = 1; j <= 100; j++) {
-				if (map[i][j] > 50) {
-					q.add(j);
-					visited[j] = true;
-					list.add(new pair(i, j));
-					found = true;
+		adj = new int[N][N];
+		for (int i = 0; i < N; i++) {
+			String str = f.readLine();
+			for (int j = 0; j < N; j++) {
+				adj[i][j] = str.charAt(j) - '0';
+			}
+		}
+
+		visited = new int[N];
+		Arrays.fill(visited, -1);
+		for (int i = 0; i < N; i++) {
+			dfs(i, i);
+		}
+
+		for(int i=0;i<N;i++)
+			System.out.print(visited[i]+" ");
+		System.out.println("");
+		
+		double[][] adjMatrix = new double[N][N];
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				if (i == j)
+					adjMatrix[i][j] = 0;
+				else if (adj[i][j] == 1) {
+					adjMatrix[i][j] = Math.hypot(loc[i][0] - loc[j][0],
+							loc[i][1] - loc[j][1]);
+				} else {
+					adjMatrix[i][j] = Z;
 				}
 
 			}
+		}
+		adjMatrix = FW(adjMatrix);
+	/*	
+		for(int i=0;i<N;i++){
+			for(int j=0;j<N;j++){
+				System.out.print(" "+adjMatrix[i][j]);
+			}
+			System.out.println("");
+		}
+*/
+		
+		System.out.println(System.currentTimeMillis() - start);
+		double best = Z;
+		for (int i = 0; i < N; i++) {
+			for (int j = i + 1; j < N; j++) {
+				if (visited[i] != visited[j]) {
+					double e = Math.hypot(loc[i][0] - loc[j][0], loc[i][1]
+							- loc[j][1]);
+					double max = 0;
 
-			if (found) {
+					next: for (int k = 0; k < N; k++) {
+						if (visited[k] != visited[i]
+								&& visited[k] != visited[j])
+							continue;
+						for (int m = k + 1; m < N; m++) {
+							if (visited[m] != visited[i]
+									&& visited[m] != visited[j])
+								continue;
+						if (adjMatrix[k][m] < max)
+								continue;
 
-				int[] perc;
-				int j = 0;
-				while (found) {
-					perc = new int[101];
-					found = false;
-					q.add(i);
-					for (int x : q) {
-						for (int k = 1; k <= 100; k++)
-							perc[k] += map[x][k];
-					}
-					for (int k = 1; k <= 100; k++) {
-						if (perc[k] > 50) {
-							if (!visited[k]) {
-								visited[k] = true;
-								q.add(k);
-								found = true;
+							if (visited[i] == visited[k]) {
+								max = Math.max(
+										max,
+										Math.min(adjMatrix[k][m], e
+												+ adjMatrix[k][i]
+												+ adjMatrix[j][m]));
+							} else {
+								max = Math.max(
+										max,
+										Math.min(adjMatrix[k][m], e
+												+ adjMatrix[k][j]
+												+ adjMatrix[i][m]));
 							}
-
+							if (max > best)
+								break next;
 						}
 					}
-
+					best = Math.min(best, max);
 				}
-
-				for (int k = 1; k <= 100; k++)
-					if (visited[k])
-						list.add(new pair(i, k));
-
 			}
-			q.clear();
+		}
+		String ans = String.format("%.6f", best);
 
+		while (ans.length() - ans.indexOf(".") < 6) {
+			ans = ans + "0";
 		}
 
-		for (pair x : list) {
-			if (x.a != x.b)
-				pw.println(x.a + " " + x.b);
-		}
+		System.out.println(ans);
 
-		pw.close();
-		System.out.println("Time : " + (System.currentTimeMillis() - time));
+		out.close();
+		System.out.println(System.currentTimeMillis() - start);
 		System.exit(0);
+	}
+
+	static int[][] adj;
+	static int[][] loc;
+	static int[] visited;
+	static int N;
+	static double Z = 1e30;
+
+	private static void dfs(int at, int num) {
+		if (visited[at] != -1)
+			return;
+		visited[at] = num;
+		for (int i = 0; i < N; i++) {
+			if (adj[at][i] == 1)
+				dfs(i, num);
+		}
+	}
+
+	public static double[][] FW(double[][] adj) {
+		for (int i = 0; i < adj.length; i++) {
+			for (int j = 0; j < adj.length; j++) {
+				for (int k = 0; k < adj.length; k++) {
+					adj[j][k] = Math.min(adj[j][k], adj[j][i] + adj[i][k]);
+				}
+			}
+		}
+		return adj;
 	}
 }

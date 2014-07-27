@@ -1,3 +1,5 @@
+package USACO;
+
 // USACO ANALYSIS
 //Rather than doing a Binary Search everytime to check a numbers presence,
 // take a boolean array of the size of the max value. Mark it true everywhere the 
@@ -20,8 +22,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.TreeSet;
 
 /*Algo

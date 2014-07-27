@@ -9,7 +9,6 @@ import java.io.PrintWriter;
 import java.io.StreamTokenizer;
 import java.util.TreeSet;
 
-import Algos.PrimAlgo.Node;
 
 public class agrinet {
 

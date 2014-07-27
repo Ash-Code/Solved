@@ -41,7 +41,7 @@ public class TheMatrix {
 					count++;
 					// the most headache i ever had. Remember, compare every
 					// result with max to get the result. Including the starting
-					// case where there is jjust one row. The placement of
+					// case where there is just one row. The placement of
 					// count++, K++ etc matters ALOT. Fuckin use your head once
 					// in a while
 					best = Math.min(best, mark[k][j]);
@@ -57,10 +57,7 @@ public class TheMatrix {
 
 	public static void main(String args[]) {
 
-		String[] S = { "10101", "01000", "10100", "01010", "10101", "00010",
-				"10101", "01010", "10101", "01000", "10101", "01010", "10101",
-				"01011", "10101", "01010", "10101", "01010", "10101", "00010",
-				"10101" };
+		String[] S = 	{"0101010101010101010101010101", "0101010101010101010101010101", "0101010101010101010101010101"};
 		int[][] map = new int[S.length][S[0].length()];
 
 		for (int i = 0; i < S.length; i++) {

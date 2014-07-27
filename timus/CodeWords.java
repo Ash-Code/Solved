@@ -5,44 +5,108 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class CodeWords {
 
 	public static int same(char[] in, int N) {
-	
-		for(int i=0;i<in.length;i++){
-			
+		int sum = 0;
+		for (int i = 0; i < in.length; i++) {
+			if (in[i] == '1')
+				sum += (i + 1);
 		}
-		return 0;
+
+		return sum % (N + 1);
 	}
 
 	public static int smaller(char[] in, int N) {
-		return 0;
+		int[] nos = new int[in.length];
+		int sum = in[in.length - 1] == '0' ? 0 : in.length;
+		nos[in.length - 1] = in[in.length - 1] == '0' ? 0 : 1;
+		for (int i = in.length - 2; i >= 0; i--) {
+			nos[i] = nos[i + 1];
+			if (in[i] == '1') {
+				sum += (i + 1);
+				nos[i]++;
+			}
+
+		}
+
+		for (int i = 0; i < in.length; i++) {
+			if ((sum + nos[i]) % (N + 1) == 0) {
+
+				return -1 * (i + 1);
+			}
+			if ((sum + nos[i] + i + 1) % (N + 1) == 0) {
+
+				return i + 1;
+			}
+		}
+
+		if ((sum + N) % (N + 1) == 0)
+			return N;
+
+		return -N;
 	}
 
 	public static int larger(char[] in, int N) {
+		int[] nos = new int[in.length + 1];
+		int sum = in[in.length - 1] == '0' ? 0 : in.length;
+		nos[in.length - 1] = in[in.length - 1] == '0' ? 0 : 1;
+		for (int i = in.length - 2; i >= 0; i--) {
+			nos[i] = nos[i + 1];
+			if (in[i] == '1') {
+				sum += (i + 1);
+				nos[i]++;
+			}
+		}
+
+		for (int i = 0; i < in.length; i++) {
+			if (in[i] == '1') {
+				if ((sum - nos[i + 1] - i - 1) % (N + 1) == 0) {
+					return i + 1;
+				}
+			} else {
+				if ((sum - nos[i + 1]) % (N + 1) == 0) {
+					return i + 1;
+				}
+			}
+		}
+
 		return 0;
 	}
 
 	public static void main(String args[]) throws IOException {
+
 		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
-		PrintWriter out = new PrintWriter(System.out);
-		ArrayList<String> res = new ArrayList<String>();
-		int N = Integer.parseInt(bf.readLine());
-		String in = bf.readLine();
-		while (!in.equals(null)) {
+		StringBuilder sBuild = new StringBuilder();
+		int N = Integer.parseInt(bf.readLine().trim());
+		while (bf.ready()) {
+			sBuild.append(bf.readLine()).append("\n");
+		}
+
+		String[] list = sBuild.toString().split("\n");
+
+		for (String in : list) {
+
+			in = in.replaceAll(" ", "");
+			if (in.isEmpty())
+				continue;
 			char[] seq = in.toCharArray();
 			if (in.length() == N) {
+
 				int pos = same(seq, N);
+
 				if (pos > 0) {
 					pos--;
-					seq[pos] = (char) ('1' - (seq[pos]));
+					seq[pos] = '0';
 				}
-				res.add(new String(seq));
-			}
+				System.out.println(new String(seq));
 
-			if (in.length() < N) {
+			} else if (in.length() < N) {
+
 				int pos = smaller(seq, N);
+
 				StringBuilder sb = new StringBuilder();
 				if (pos > 0) {
 					pos--;
@@ -57,17 +121,17 @@ public class CodeWords {
 					sb.append('0');
 					sb.append(in.substring(pos));
 				}
-				res.add(sb.toString());
+				System.out.println(sb.toString());
 
-			}
-			if (in.length() > N) {
+			} else if (in.length() > N) {
+
 				int pos = larger(seq, N);
+
 				StringBuilder sb = new StringBuilder();
 				pos--;
 				sb.append(in.substring(0, pos));
 				sb.append(in.substring(pos + 1));
-
-				res.add(sb.toString());
+				System.out.println(sb.toString());
 
 			}
 

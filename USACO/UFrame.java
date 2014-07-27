@@ -8,6 +8,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StreamTokenizer;
 
+/*
+ID: renegad2
+LANG: JAVA
+TASK: runaround
+*/
 public class UFrame {
 	public static PrintWriter pw;
 
